@@ -1,0 +1,31 @@
+.list {
+  margin: 80px 0;
+  display: grid;
+  grid-template-columns: repeat(3, 350px);
+  gap: 40px;
+
+  a {
+    color: #010101;
+  }
+
+  &__item {
+    height: 180px;
+    padding: 10px 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 0 4px hsla(0, 0%, 0.0000%, 0.20);
+    border-radius: 4px;
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: translateY(-8px);
+    }
+
+    &__img {
+      height: 120px;
+      width: 50px;
+      margin-top: 8px;
+    }
+  }
+}

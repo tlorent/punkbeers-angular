@@ -1,0 +1,24 @@
+<div class="container">
+  <input
+    type="text"
+    id="search-box"
+    placeholder="You lookin' for a beer, punk?"
+    #searchBox
+    (input)="handleChange(searchBox.value)"
+    class="search__input"
+  />
+
+  <!-- <div *ngIf="beers" class="search__results">
+    <app-list [beers]="beers"></app-list>
+  </div> -->
+
+  <div *ngIf="beers$" class="search__results">
+    <!-- *ngFor directive can't do anything with an Observable. So an AsyncPipe is necessary.
+         AsyncPipe automatically subscribes to an Observable, so it's not necessary in the component class itself.
+     -->
+    <app-beer-detail
+      *ngFor="let beer of beers$ | async"
+      [beer]="beer"
+    ></app-beer-detail>
+  </div>
+</div>

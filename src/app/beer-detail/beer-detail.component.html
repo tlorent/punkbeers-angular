@@ -1,0 +1,22 @@
+<div>
+  <div class="beer">
+    <div>
+      <h3>
+        <span
+          class="beer__fav"
+          (click)="beer.fav ? onRemove(beer.id) : onAdd(beer)"
+          >{{ beer.fav ? "X" : "+" }}</span
+        >
+      </h3>
+      <img class="beer__img" [src]="beer.image_url" [alt]="beer.name" />
+    </div>
+    <div class="beer__details">
+      <a routerLink="/beer/{{ beer.id }}">{{ beer.name | uppercase }}</a>
+      <p>{{ beer.tagline }}</p>
+    </div>
+  </div>
+
+  <div *ngIf="hasBackButton">
+    <button appBackButton>&larr; back</button>
+  </div>
+</div>

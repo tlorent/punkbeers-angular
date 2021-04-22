@@ -1,0 +1,33 @@
+.beer {
+  height: 180px;
+  padding: 10px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 0 4px hsla(0, 0%, 0.0000%, 0.20);
+  border-radius: 4px;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: translateY(-8px);
+  }
+
+  &__img {
+    height: 128px;
+    width: 40px;
+    margin-top: 8px;
+  }
+
+  &__fav {
+    margin-left: 6px;
+    cursor: pointer;
+    font-size: 23px;
+  }
+
+  &__details {
+    display: flex;
+    flex-direction: column;
+    max-width: 200px;
+    text-align: right;
+  }
+}

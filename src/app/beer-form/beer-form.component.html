@@ -1,0 +1,98 @@
+<!-- ngForm is a directive which keeps track of your form state changes and validation of inputs in te form
+noValidate: use Angular's built in validation.
+
+This is a "template-driven form" so each input needs to have a name.
+The name you use will be the property on the form
+template is the source of truth. send the data to the back-end from here.
+
+#form is a template ref, which gives you access to the form
+#name is also a template ref, gives you access to the individual input value via ngModel
+ngModel is synchronising the form values -->
+<form
+  (ngSubmit)="handleSubmit(form.value, form.valid)"
+  #form="ngForm"
+  novalidate
+  class="beer-form"
+>
+  <div>
+    <label for="name">
+      Name
+      <input
+        type="text"
+        name="name"
+        id="name"
+        ngModel
+        required
+        #name="ngModel"
+        [ngClass]="{ error: name.invalid && name.dirty }"
+      />
+    </label>
+    <span *ngIf="name.invalid && name.touched">Please enter a beer name</span>
+    <br />
+
+    <label for="tagline">
+      Tagline
+      <input
+        type="text"
+        name="tagline"
+        id="tagline"
+        ngModel
+        required
+        #tagline="ngModel"
+        [ngClass]="{ error: tagline.invalid && tagline.touched }"
+      />
+    </label>
+    <span *ngIf="tagline.invalid && tagline.touched"
+      >Please enter a tagline</span
+    >
+    <br />
+
+    <label for="image">
+      Image
+      <input
+        type="text"
+        name="image_url"
+        id="image"
+        ngModel
+        required
+        #img="ngModel"
+        [ngClass]="{ error: img.invalid && img.touched }"
+      />
+    </label>
+    <span *ngIf="img.invalid && img.touched">Please provide an image</span>
+  </div>
+
+  <div>
+    <label for="drunk1"
+      ><input
+        type="checkbox"
+        name="drunk"
+        id="drunk1"
+        ngModel
+        (ngModelChange)="toggleDrunk($event)"
+        #drunk="ngModel"
+      />Got me drunk</label
+    >
+  </div>
+
+  <div>
+    Drank beer in city:
+    <select
+      name="city"
+      id="city"
+      ngModel
+      required
+      #city="ngModel"
+      [ngClass]="{ error: city.invalid && city.touched }"
+    >
+      <option *ngFor="let city of cities" [value]="city.key">
+        {{ city.value }}
+      </option>
+    </select>
+    <span *ngIf="city.invalid && city.touched"
+      >Please enter the city in which you drank the beer</span
+    >
+  </div>
+
+  <button type="submit" [disabled]="form.invalid">Add beer!</button>
+</form>

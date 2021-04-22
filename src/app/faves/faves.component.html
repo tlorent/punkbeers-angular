@@ -1,0 +1,10 @@
+<div class="container">
+  <h1>Your Favourite Beers!</h1>
+
+  <h3>Add your own beer.</h3>
+  <app-beer-form (update)="onUpdateFaves($event)"></app-beer-form>
+
+  <!-- <app-list [beers]="faves" (remove)="handleRemove($event)"></app-list> -->
+  <!-- <app-list [beers]="getFaves()"></app-list> -->
+  <app-list [beers]="faves"></app-list>
+</div>

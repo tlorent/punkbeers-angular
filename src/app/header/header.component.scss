@@ -1,0 +1,45 @@
+.nav {
+  position: sticky;
+  height: 100%;
+  top: 0;
+  z-index: 1000;
+  background: rgb(52, 211, 153);
+  padding: 18px 25px;
+  box-shadow: 0 0 4px hsla(0, 0%, 0.0000%, 0.20);
+
+  a {
+    color: #fff;
+  }
+
+  &__list {
+    display: flex;
+    list-style: none;
+    justify-content: space-between;
+    align-items: center;
+
+    &__home {
+      font-size: 30px;
+      font-weight: bold;
+
+      span {
+        font-size: 15px;
+        font-weight: 100;
+      }
+    }
+
+    &__items {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    &__item {
+      margin-right: 7px;
+      margin-bottom: 3px;
+      font-weight: 100;
+
+      .active {
+        font-weight: bold;
+      }
+    }
+  }
+}
