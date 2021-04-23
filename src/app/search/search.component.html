@@ -14,7 +14,8 @@
 
   <div *ngIf="beers$" class="search__results">
     <!-- *ngFor directive can't do anything with an Observable. So an AsyncPipe is necessary.
-         AsyncPipe automatically subscribes to an Observable, so it's not necessary in the component class itself.
+         AsyncPipe automatically subscribes and unsubscribes to an Observable,
+         so it's not necessary in the component class itself.
      -->
     <app-beer-detail
       *ngFor="let beer of beers$ | async"
