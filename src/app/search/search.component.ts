@@ -24,17 +24,17 @@ export class SearchComponent implements OnInit {
     will push these values to the Observable and each value will trigger a request
     to the API to gather beers that have the values of the searchTerms in their name.
    */
-  private searchTerms = new Subject<string>();
+  private searchTerms$ = new Subject<string>();
 
   constructor(private beerService: BeersService) { }
 
   // Push a search term into the observable stream.
   handleChange(term: string) {
-    this.searchTerms.next(term);
+    this.searchTerms$.next(term);
   }
 
   ngOnInit(): void {
-    this.beers$ = this.searchTerms.pipe(
+    this.beers$ = this.searchTerms$.pipe(
       // wait 300ms after the using has typed, otherwise we fire API requests off like crazy.
       debounceTime(300),
       // only continue with the current value in the searchTerms stream

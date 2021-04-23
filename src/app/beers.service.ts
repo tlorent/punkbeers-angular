@@ -14,13 +14,7 @@ export class BeersService {
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   }
-  private faves: Beer[] = [{
-    id: 1,
-    image_url: "https://images.punkapi.com/v2/keg.png",
-    name: "Buzz",
-    tagline: "A Real Bitter Experience.",
-    fav: true,
-  }];
+  private faves: Beer[] = [];
   favsChanged = new Subject<void>();
 
   // Inject the HttpClient in the service.

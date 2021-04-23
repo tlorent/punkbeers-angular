@@ -10,7 +10,6 @@ import { BeersService } from '../beers.service';
 })
 export class BeerComponent implements OnInit {
   @Input() beer?: Beer;
-  // beerId: number;
 
   // ActivatedRoute provides information about a route associated with the component
   // that is currently loaded in the (router) outlet.
@@ -27,6 +26,8 @@ export class BeerComponent implements OnInit {
 
     // Option 2 to get the id from the route params.
     const id = Number(this.route.snapshot.paramMap.get('id'));
+
+    // TODO: Convert to reactive style?
     this.beersService.getBeer(id).subscribe(beer => this.beer = beer[0]);
   }
 }
