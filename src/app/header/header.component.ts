@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 type Nav = {
   link: string;
@@ -11,7 +11,7 @@ type Nav = {
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
   nav: Nav[] = [
   {
     link: '/beers',
@@ -26,10 +26,5 @@ export class HeaderComponent implements OnInit {
     link: '/faves',
     name: 'Favourites'
   }]
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
 
 }

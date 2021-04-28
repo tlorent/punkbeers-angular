@@ -1,5 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, Input } from '@angular/core';
 import { Beer } from '../beer';
 
 @Component({
@@ -7,13 +6,6 @@ import { Beer } from '../beer';
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss']
 })
-export class ListComponent implements OnInit {
-  // https://stackoverflow.com/questions/49699067/property-has-no-initializer-and-is-not-definitely-assigned-in-the-construc
-  // What's the best solution?
-  @Input() beers!: Beer[];
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
+export class ListComponent {
+  @Input() beers: Beer[] = [];
 }

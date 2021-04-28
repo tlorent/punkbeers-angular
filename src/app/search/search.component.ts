@@ -12,9 +12,7 @@ import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 export class SearchComponent implements OnInit {
   // why $? To indicate that it's an Observable, not an array.
 
-  // https://stackoverflow.com/questions/49699067/property-has-no-initializer-and-is-not-definitely-assigned-in-the-construc
-  // What's the best solution?
-  beers$!: Observable<Beer[]>;
+  beers$: Observable<Beer[]> = new Observable<Beer[]>();
 
   /*
     Why a Subject? It's a source of observable values and an Observable itself.
@@ -43,6 +41,7 @@ export class SearchComponent implements OnInit {
 
       // switch to new search observable each time the term changes
       // switchMap cancels and discards previous search observables and returns only the latest search service observable.
+      // if an updated value comes through while the request is still active, cancel previous requests.
       switchMap((term: string) => this.beerService.searchBeers(term))
     );
   }

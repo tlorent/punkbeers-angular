@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { Beer } from '../beer';
 import { City } from '../city';
 
@@ -7,7 +7,7 @@ import { City } from '../city';
   templateUrl: './beer-form.component.html',
   styleUrls: ['./beer-form.component.scss']
 })
-export class BeerFormComponent implements OnInit {
+export class BeerFormComponent {
   @Output() update: EventEmitter<Beer> = new EventEmitter<Beer>();
 
   cities: City[] = [{
@@ -20,11 +20,6 @@ export class BeerFormComponent implements OnInit {
     key: 'mlb',
     value: 'Melbourne'
   }];
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
 
   toggleDrunk(gotDrunkFromBeer: boolean) {
     if (gotDrunkFromBeer) {
