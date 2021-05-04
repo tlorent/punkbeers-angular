@@ -13,10 +13,13 @@ import { SearchComponent } from './search/search.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { HomeComponent } from './home/home.component';
 import { NavigationService } from './navigation.service';
-import { BackButtonDirective } from './back-button.directive';
+import { BackButtonDirective } from './directives/back-button.directive';
 import { BeerFormComponent } from './beer-form/beer-form.component';
 import { FormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
+import { ContainerComponent } from './container/container.component';
+import { HighlightDirective } from './directives/highlight.directive';
+import { UnlessDirective } from './directives/unless.directive';
 
 // https://angular.io/guide/architecture-modules#ngmodule-metadata
 @NgModule({
@@ -33,7 +36,10 @@ import { StoreModule } from '@ngrx/store';
     NotFoundComponent,
     HomeComponent,
     BackButtonDirective,
-    BeerFormComponent
+    BeerFormComponent,
+    ContainerComponent,
+    HighlightDirective,
+    UnlessDirective
   ],
   /* Other modules whose exported classes are needed by component templates in this NgModule.
      Aka, what do the templates of the components that belong to this NgModule need to succesfully work?

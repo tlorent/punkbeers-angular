@@ -14,7 +14,8 @@ export class BeerDetailComponent {
     name: '',
     tagline: '',
   };
-  @Input() hasBackButton?: boolean;
+  // Alias for custom property.
+  @Input('backButton') hasBackButton?: boolean;
 
   constructor(private beersService: BeersService) { }
 

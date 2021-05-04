@@ -1,4 +1,4 @@
-<div class="container">
+<app-container>
   <h1>Your Favourite Beers!</h1>
 
   <h3>Add your own beer.</h3>
@@ -6,5 +6,8 @@
 
   <!-- <app-list [beers]="faves" (remove)="handleRemove($event)"></app-list> -->
   <!-- <app-list [beers]="getFaves()"></app-list> -->
-  <app-list [beers]="faves"></app-list>
-</div>
+  <app-list [beers]="faves" *appUnless="!faves.length"></app-list>
+  <!-- <ng-template #infoText>
+    <p>No fave beers selected yet.</p>
+  </ng-template> -->
+</app-container>

@@ -8,7 +8,8 @@ import { City } from '../city';
   styleUrls: ['./beer-form.component.scss']
 })
 export class BeerFormComponent {
-  @Output() update: EventEmitter<Beer> = new EventEmitter<Beer>();
+  // Alias for custom event.
+  @Output('update') updateBeer: EventEmitter<Beer> = new EventEmitter<Beer>();
 
   cities: City[] = [{
     key: 'ams',
@@ -48,7 +49,7 @@ export class BeerFormComponent {
   handleSubmit(beer: Beer, isValid: boolean) {
     // Can't submit the form if it's invalid, but still useful I guess.
     if (isValid) {
-      this.update.emit(beer)
+      this.updateBeer.emit(beer)
     }
   }
 }
