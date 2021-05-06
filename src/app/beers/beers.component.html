@@ -1,4 +1,12 @@
 <app-container>
   <h2>All Beers</h2>
-  <app-list [beers]="beers"></app-list>
+  <button (click)="onReverse()">Reverse beer names</button>
+  <div style="display: flex">
+    <p>Sort by:</p>
+    <select [(ngModel)]="sortBy">
+      <option value="name">Name</option>
+      <option value="tagline">Tagline</option>
+    </select>
+  </div>
+  <app-list [beers]="beers | sort: sortBy"></app-list>
 </app-container>

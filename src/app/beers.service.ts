@@ -7,19 +7,22 @@ import { Beer } from './beer';
 // @Injectable informs Angular that "things" can be injected in the constructor function.
 // In this case it's the HttpClient provider/module/service/dependency.
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class BeersService {
   private beerUrl = 'https://api.punkapi.com/v2/beers';
   httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  }
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+  };
   private faves: Beer[] = [];
-  favsChanged = new Subject<void>();
+  private namesReversed: boolean = false;
+
+  favsChanged = new Subject<Beer[]>();
+  namesReversedUpdated = new Subject<boolean>();
 
   // Inject the HttpClient in the service.
   // Define a private http property and identify it as an HttpClient injection site.
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   fetchBeers(url?: string): Observable<Beer[]> {
     // Observables can return multiple values over time, but an Observable of an HttpClient always emits a single value
@@ -28,13 +31,15 @@ export class BeersService {
     // By typing the response of http.get it will return it in the requested type.
     // Otherwise you have to convert the response from JSON yourself.
     return this.http.get<Beer[]>(url ?? this.beerUrl, this.httpOptions).pipe(
-      map(beers => beers.map(({ id, image_url, name, tagline }) => ({
-        id,
-        image_url,
-        name,
-        tagline,
-        fav: this.faves.findIndex((favBeer) => favBeer.id === id) > -1,
-      })))
+      map((beers) =>
+        beers.map(({ id, image_url, name, tagline }) => ({
+          id,
+          image_url,
+          name,
+          tagline,
+          fav: this.faves.findIndex((favBeer) => favBeer.id === id) > -1,
+        }))
+      )
     );
   }
 
@@ -54,12 +59,14 @@ export class BeersService {
   }
 
   addFav(beer: Beer) {
-    const alreadyFav = this.faves.find(({ id, name }) => id === beer.id || name === beer.name);
+    const alreadyFav = this.faves.find(
+      ({ id, name }) => id === beer.id || name === beer.name
+    );
     if (!alreadyFav) this.faves = [...this.faves, { ...beer, fav: true }];
 
     // faves is changed.
     // emit the latest copy to whoever subscribes to this subject.
-    this.favsChanged.next();
+    this.favsChanged.next(this.faves);
   }
 
   removeFav(beerId: number) {
@@ -67,12 +74,17 @@ export class BeersService {
 
     // faves is changed.
     // emit the latest copy to whoever subscribes to this subject.
-    this.favsChanged.next();
+    this.favsChanged.next(this.faves);
   }
 
   addCustomFav(newBeer: Beer) {
     const id = Math.floor(Math.random() * 38190283910823 + 25);
     const beer = { ...newBeer, id, fav: true };
     this.addFav(beer);
+  }
+
+  handleNamesReversed() {
+    this.namesReversed = !this.namesReversed;
+    this.namesReversedUpdated.next(this.namesReversed);
   }
 }

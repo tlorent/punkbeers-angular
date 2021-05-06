@@ -8,14 +8,16 @@ import { UnsubscribeOnDestroyAdapter } from '../unsubscribe-on-destroy-adapter';
   templateUrl: './faves.component.html',
   styleUrls: ['./faves.component.scss'],
 })
-export class FavesComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
+export class FavesComponent
+  extends UnsubscribeOnDestroyAdapter
+  implements OnInit {
   faves: Beer[] = [];
 
   constructor(private beersService: BeersService) {
     super();
-    this.subs.sink = this.beersService.favsChanged.subscribe(() => {
-      this.faves = this.beersService.getFaves();
-    })
+    this.subs.sink = this.beersService.favsChanged.subscribe((faves) => {
+      this.faves = faves;
+    });
   }
 
   ngOnInit(): void {

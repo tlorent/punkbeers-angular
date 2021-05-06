@@ -20,6 +20,8 @@ import { StoreModule } from '@ngrx/store';
 import { ContainerComponent } from './container/container.component';
 import { HighlightDirective } from './directives/highlight.directive';
 import { UnlessDirective } from './directives/unless.directive';
+import { ReversePipe } from './pipes/reverse.pipe';
+import { SortPipe } from './pipes/sort.pipe';
 
 // https://angular.io/guide/architecture-modules#ngmodule-metadata
 @NgModule({
@@ -39,7 +41,9 @@ import { UnlessDirective } from './directives/unless.directive';
     BeerFormComponent,
     ContainerComponent,
     HighlightDirective,
-    UnlessDirective
+    UnlessDirective,
+    ReversePipe,
+    SortPipe,
   ],
   /* Other modules whose exported classes are needed by component templates in this NgModule.
      Aka, what do the templates of the components that belong to this NgModule need to succesfully work?
@@ -58,7 +62,7 @@ import { UnlessDirective } from './directives/unless.directive';
     // Exports providers and directives needed for template-driven forms.
     FormsModule,
     // Registers the global providers needed to access the Store throughout the application.
-    StoreModule.forRoot({}, {})
+    StoreModule.forRoot({}, {}),
   ],
   /* Make services accessible/available.
      For example, the directive BackButtonDirective needs the NavigationService to work
@@ -69,6 +73,6 @@ import { UnlessDirective } from './directives/unless.directive';
   providers: [NavigationService],
   // The main application view, the root component. This view hosts all other app views.
   // Only the root NgModule should set the bootstrap property.
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

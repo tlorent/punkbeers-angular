@@ -11,7 +11,9 @@
       <img class="beer__img" [src]="beer.image_url" [alt]="beer.name" />
     </div>
     <div class="beer__details">
-      <a routerLink="/beer/{{ beer.id }}">{{ beer.name | uppercase }}</a>
+      <a routerLink="/beer/{{ beer.id }}">{{
+        beer.name | reverse: namesReversed
+      }}</a>
       <p>{{ beer.tagline }}</p>
     </div>
   </div>
