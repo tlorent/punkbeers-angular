@@ -16,19 +16,21 @@ export class FavesComponent
 
   constructor(private beersService: BeersService) {
     super();
-    this.subs.sink = this.beersService.favsChanged.subscribe((faves) => {
-      this.faves = faves;
-    });
-    this.subs.sink = this.beersService.errors.subscribe(
-      (error) => (this.error = error)
-    );
   }
 
   ngOnInit() {
-    this.beersService.getFaves().subscribe((faves) => (this.faves = faves));
+    this.subs.add(
+      this.beersService.favsChanged.subscribe((faves) => {
+        this.faves = faves;
+      }),
+      (this.subs.sink = this.beersService.errors.subscribe(
+        (error) => (this.error = error)
+      )),
+      this.beersService.getFaves().subscribe((faves) => (this.faves = faves))
+    );
   }
 
   onUpdateFaves(beer: Beer) {
-    this.beersService.addCustomFav(beer);
+    this.beersService.addCustomBeer(beer);
   }
 }

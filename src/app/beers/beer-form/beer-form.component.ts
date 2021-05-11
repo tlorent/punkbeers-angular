@@ -62,7 +62,6 @@ export class BeerFormComponent {
   }
 
   handleSubmit(beer: Beer, isValid: boolean) {
-    // Can't submit the form if it's invalid, but still useful I guess.
     if (isValid) {
       this.updateBeer.emit(beer);
     }

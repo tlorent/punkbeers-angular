@@ -15,6 +15,6 @@ import { BeersComponent } from './beers.component';
     then you don't have to export them again in this module if you use
     them internally (not in any other module).
    */
-  exports: [BeerFormComponent],
+  exports: [BeerFormComponent, BeerComponent],
 })
 export class BeersModule {}

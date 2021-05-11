@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './auth/auth.guard';
+import { BeerComponent } from './beers/beer/beer.component';
 import { FavesComponent } from './faves/faves.component';
 import { HomeComponent } from './home/home.component';
 import { NotFoundComponent } from './not-found/not-found.component';
@@ -17,6 +18,7 @@ const routes: Routes = [
     loadChildren: () =>
       import('./auth/auth.module').then((mod) => mod.AuthModule),
   },
+  { path: 'beer/:id', component: BeerComponent, canActivate: [AuthGuard] },
   { path: 'faves', component: FavesComponent, canActivate: [AuthGuard] },
   { path: '**', component: NotFoundComponent },
 ];

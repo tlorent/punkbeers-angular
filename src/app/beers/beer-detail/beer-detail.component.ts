@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Beer } from '../../beer';
 import { BeersService } from '../../beers.service';
 import { UnsubscribeOnDestroyAdapter } from '../../unsubscribe-on-destroy-adapter';
@@ -8,12 +8,15 @@ import { UnsubscribeOnDestroyAdapter } from '../../unsubscribe-on-destroy-adapte
   templateUrl: './beer-detail.component.html',
   styleUrls: ['./beer-detail.component.scss'],
 })
-export class BeerDetailComponent extends UnsubscribeOnDestroyAdapter {
+export class BeerDetailComponent
+  extends UnsubscribeOnDestroyAdapter
+  implements OnInit {
   @Input() beer: Beer = {
     id: '',
     image_url: '',
     name: '',
     tagline: '',
+    key: '',
   };
   // Alias for custom property.
   @Input('backButton') hasBackButton?: boolean;
@@ -21,16 +24,19 @@ export class BeerDetailComponent extends UnsubscribeOnDestroyAdapter {
 
   constructor(private beersService: BeersService) {
     super();
+  }
+
+  ngOnInit() {
     this.subs.sink = this.beersService.namesReversedUpdated.subscribe(
       (namesReversed) => (this.namesReversed = namesReversed)
     );
   }
 
-  onRemove(beerId: string) {
-    this.beersService.removeFav(beerId);
-  }
-
   onAdd(beer: Beer) {
     this.beersService.addFav({ ...beer, fav: true });
+  }
+
+  onRemove(beerId: string) {
+    this.beersService.removeFav(beerId);
   }
 }

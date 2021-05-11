@@ -18,16 +18,24 @@ export class BeersComponent
     // Call the parent's constructor (UnsubscribeOnDestroyAdapter) with super()
     // from the child class BeersComponent because we extend the parent class
     super();
-    this.subs.sink = this.beersService.favsChanged.subscribe((faves) => {
-      this.beers = this.beers.map((beer) => ({
-        ...beer,
-        fav: faves.findIndex((favBeer) => favBeer.id === beer.id) > -1,
-      }));
-    });
   }
 
   ngOnInit() {
-    this.beersService.fetchBeers().subscribe((beers) => (this.beers = beers));
+    this.subs.add(
+      this.beersService.favsChanged.subscribe((faves) => {
+        this.beers = this.beers.map((beer) => ({
+          ...beer,
+          fav: faves.findIndex((favBeer) => favBeer.id === beer.id) > -1,
+        }));
+      }),
+      this.beersService.fetchBeers().subscribe((beers) => (this.beers = beers)),
+      this.beersService.getFaves().subscribe((faves) => {
+        this.beers = this.beers.map((beer) => ({
+          ...beer,
+          fav: faves.findIndex((favBeer) => favBeer.id === beer.id) > -1,
+        }));
+      })
+    );
   }
 
   onReverse() {

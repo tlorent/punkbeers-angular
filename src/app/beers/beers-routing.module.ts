@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '../auth/auth.guard';
-import { BeerComponent } from './beer/beer.component';
 import { BeersComponent } from './beers.component';
 
 const routes: Routes = [
@@ -10,7 +9,6 @@ const routes: Routes = [
     component: BeersComponent,
     canActivate: [AuthGuard],
   },
-  { path: 'beer/:id', component: BeerComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({

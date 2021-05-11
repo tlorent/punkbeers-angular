@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of, Subject, throwError } from 'rxjs';
-import { catchError, exhaustMap, map, take, tap } from 'rxjs/operators';
-import { AuthService } from './auth/auth.service';
+import { Observable, Subject, throwError } from 'rxjs';
+import { catchError, map, tap } from 'rxjs/operators';
 import { Beer } from './beer';
+import { v4 as uuid } from 'uuid';
 
 // https://angular.io/guide/http#requesting-a-typed-response
 type BeerResponse = Record<string, Beer>;
@@ -26,20 +26,23 @@ export class BeersService {
 
   // Inject the HttpClient in the service.
   // Define a private http property and identify it as an HttpClient injection site.
-  constructor(private http: HttpClient, private authService: AuthService) {}
+  constructor(private http: HttpClient) {}
 
   formatBeers(data: BeerResponse): Beer[] {
-    return Object.entries(data).map(([key, { image_url, name, tagline }]) => ({
-      id: key,
-      image_url,
-      name,
-      tagline,
-      fav:
-        this.faves.length &&
-        this.faves.findIndex((favBeer) => favBeer.id === key) > -1
-          ? true
-          : false,
-    }));
+    return Object.entries(data).map(
+      ([key, { id, image_url, name, tagline }]) => ({
+        id,
+        key,
+        image_url,
+        name,
+        tagline,
+        fav:
+          this.faves.length &&
+          this.faves.findIndex((favBeer) => favBeer.id === id) > -1
+            ? true
+            : false,
+      })
+    );
   }
 
   fetchBeers(url?: string): Observable<Beer[]> {
@@ -76,8 +79,9 @@ export class BeersService {
 
   formatFaves(faves: BeerResponse) {
     return faves
-      ? (this.faves = Object.values(faves).map((fav) => ({
-          ...fav,
+      ? (this.faves = Object.entries(faves).map(([key, val]) => ({
+          ...val,
+          key,
         })))
       : [];
   }
@@ -120,27 +124,39 @@ export class BeersService {
   }
 
   removeFav(beerId: string) {
+    // Get the key of the beer to delete.
+    const beerKey = this.faves.find((beer) => beer.id === beerId)?.key;
+
+    // Update the local copy of faves.
     this.faves = this.faves.filter((beer) => beer.id !== beerId);
 
-    this.http.delete(`${this.beerUrl}/faves/${beerId}.json`).subscribe();
+    this.http.delete(`${this.beerUrl}/faves/${beerKey}.json`).subscribe();
 
     // faves is changed.
     // emit the latest copy to whoever subscribes to this subject.
     this.favsChanged.next(this.faves);
   }
 
-  addCustomFav(newBeer: Beer) {
-    const beer = { ...newBeer, fav: true };
-
-    // Add to db in beers.
-    this.http.post(`${this.beerUrl}/beers.json`, beer).subscribe(
-      () => {},
-      (error) => {
-        this.errors.next(error.message);
-      }
+  addCustomBeer(newBeer: Beer) {
+    const beerExists = this.beers.find(
+      ({ id, name }) => id === newBeer.id || name === newBeer.name
     );
 
-    this.addFav(beer);
+    if (!beerExists) {
+      let beer = { ...newBeer, fav: true, id: uuid() };
+
+      // Add to db in beers.
+      this.http
+        .post<{ name: string }>(`${this.beerUrl}/beers.json`, beer)
+        .subscribe(
+          (res) => (beer = { ...beer, key: res.name }),
+          (error) => {
+            this.errors.next(error.message);
+          }
+        );
+
+      this.addFav(beer);
+    }
   }
 
   handleNamesReversed() {
