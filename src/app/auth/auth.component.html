@@ -1,0 +1,42 @@
+<app-container>
+  <app-alert
+    [message]="error"
+    *ngIf="error"
+    (close)="onHandleError()"
+  ></app-alert>
+  <h3>Please {{ isLoginMode ? "log in" : "sign up" }}</h3>
+  <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)">
+    <div>
+      <label for="email">Email</label>
+      <input
+        type="text"
+        name="email"
+        id="email"
+        ngModel
+        style="margin-bottom: 10px; margin-top: 10px"
+        required
+        email
+      />
+      <br />
+      <label for="password">Password</label>
+      <input
+        type="password"
+        name="password"
+        id="password"
+        ngModel
+        required
+        minlength="6"
+      />
+    </div>
+    <br /><br />
+    <div>
+      <button type="submit" [disabled]="!authForm.valid">
+        {{ isLoginMode ? "Log in" : "Sign up" }}
+      </button>
+      |
+      <button type="button" (click)="onSwitchMode()">
+        Switch to {{ isLoginMode ? "Sign up" : "Login" }}
+      </button>
+    </div>
+  </form>
+</app-container>

@@ -7,9 +7,9 @@ import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
-  styleUrls: ['./search.component.scss']
+  styleUrls: ['./search.component.scss'],
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent {
   // why $? To indicate that it's an Observable, not an array.
 
   beers$: Observable<Beer[]> = new Observable<Beer[]>();
@@ -24,26 +24,25 @@ export class SearchComponent implements OnInit {
    */
   private searchTerms$ = new Subject<string>();
 
-  constructor(private beerService: BeersService) { }
+  constructor(private beerService: BeersService) {}
 
   // Push a search term into the observable stream.
   handleChange(term: string) {
     this.searchTerms$.next(term);
   }
 
-  ngOnInit(): void {
-    this.beers$ = this.searchTerms$.pipe(
-      // wait 300ms after the using has typed, otherwise we fire API requests off like crazy.
-      debounceTime(300),
-      // only continue with the current value in the searchTerms stream
-      // if it is different than the previous value in the stream.
-      distinctUntilChanged(),
+  // ngOnInit(): void {
+  //   this.beers$ = this.searchTerms$.pipe(
+  //     // wait 300ms after the using has typed, otherwise we fire API requests off like crazy.
+  //     debounceTime(300),
+  //     // only continue with the current value in the searchTerms stream
+  //     // if it is different than the previous value in the stream.
+  //     distinctUntilChanged(),
 
-      // switch to new search observable each time the term changes
-      // switchMap cancels and discards previous search observables and returns only the latest search service observable.
-      // if an updated value comes through while the request is still active, cancel previous requests.
-      switchMap((term: string) => this.beerService.searchBeers(term))
-    );
-  }
-
+  //     // switch to new search observable each time the term changes
+  //     // switchMap cancels and discards previous search observables and returns only the latest search service observable.
+  //     // if an updated value comes through while the request is still active, cancel previous requests.
+  //     switchMap((term: string) => this.beerService.searchBeers(term))
+  //   );
+  // }
 }

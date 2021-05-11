@@ -7,6 +7,7 @@
   <!-- <app-list [beers]="faves" (remove)="handleRemove($event)"></app-list> -->
   <!-- <app-list [beers]="getFaves()"></app-list> -->
   <app-list [beers]="faves" *appUnless="!faves.length"></app-list>
+  <p *ngIf="error">{{ error }}</p>
   <!-- <ng-template #infoText>
     <p>No fave beers selected yet.</p>
   </ng-template> -->

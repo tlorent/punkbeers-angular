@@ -4,12 +4,36 @@
       <a routerLink="/">Punk Beers. <span>For real punks.</span></a>
     </li>
     <div class="nav__list__items">
-      <li class="nav__list__item" *ngFor="let item of nav">
+      <li class="nav__list__item">
         <a
-          [routerLink]="item.link"
+          [routerLink]="'/beers'"
+          *ngIf="isAuthenticated"
           routerLinkActive="active"
-          [routerLinkActiveOptions]="{ exact: item.exact }"
-          >{{ item.name }}</a
+          [routerLinkActiveOptions]="{ exact: true }"
+          >Beers</a
+        >
+      </li>
+      <li class="nav__list__item">
+        <a
+          [routerLink]="'/faves'"
+          *ngIf="isAuthenticated"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          >Faves</a
+        >
+      </li>
+      <li class="nav__list__item">
+        <a
+          [routerLink]="'/auth'"
+          *ngIf="!isAuthenticated"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          >Login</a
+        >
+      </li>
+      <li class="nav__list__item">
+        <a *ngIf="isAuthenticated" (click)="onLogOut()" style="cursor: pointer"
+          >Logout</a
         >
       </li>
     </div>

@@ -27,9 +27,7 @@ export class BeersComponent
   }
 
   ngOnInit() {
-    this.beersService
-      .fetchBeers()
-      .subscribe((apiData) => (this.beers = apiData));
+    this.beersService.fetchBeers().subscribe((beers) => (this.beers = beers));
   }
 
   onReverse() {

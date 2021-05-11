@@ -12,19 +12,23 @@ export class FavesComponent
   extends UnsubscribeOnDestroyAdapter
   implements OnInit {
   faves: Beer[] = [];
+  error: null | string = null;
 
   constructor(private beersService: BeersService) {
     super();
     this.subs.sink = this.beersService.favsChanged.subscribe((faves) => {
       this.faves = faves;
     });
+    this.subs.sink = this.beersService.errors.subscribe(
+      (error) => (this.error = error)
+    );
   }
 
-  ngOnInit(): void {
-    this.faves = this.beersService.getFaves();
+  ngOnInit() {
+    this.beersService.getFaves().subscribe((faves) => (this.faves = faves));
   }
 
-  onUpdateFaves(beer: Beer): void {
+  onUpdateFaves(beer: Beer) {
     this.beersService.addCustomFav(beer);
   }
 }

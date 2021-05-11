@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { Beer } from '../beer';
-import { BeersService } from '../beers.service';
-import { UnsubscribeOnDestroyAdapter } from '../unsubscribe-on-destroy-adapter';
+import { Beer } from '../../beer';
+import { BeersService } from '../../beers.service';
+import { UnsubscribeOnDestroyAdapter } from '../../unsubscribe-on-destroy-adapter';
 
 @Component({
   selector: 'app-beer-detail',
@@ -10,7 +10,7 @@ import { UnsubscribeOnDestroyAdapter } from '../unsubscribe-on-destroy-adapter';
 })
 export class BeerDetailComponent extends UnsubscribeOnDestroyAdapter {
   @Input() beer: Beer = {
-    id: 0,
+    id: '',
     image_url: '',
     name: '',
     tagline: '',
@@ -26,11 +26,11 @@ export class BeerDetailComponent extends UnsubscribeOnDestroyAdapter {
     );
   }
 
-  onRemove(beerId: number) {
+  onRemove(beerId: string) {
     this.beersService.removeFav(beerId);
   }
 
   onAdd(beer: Beer) {
-    this.beersService.addFav(beer);
+    this.beersService.addFav({ ...beer, fav: true });
   }
 }

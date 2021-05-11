@@ -1,30 +1,28 @@
-import { Component } from '@angular/core';
-
-type Nav = {
-  link: string;
-  name: string;
-  exact?: boolean;
-}
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../auth/auth.service';
+import { UnsubscribeOnDestroyAdapter } from '../unsubscribe-on-destroy-adapter';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent {
-  nav: Nav[] = [
-  {
-    link: '/beers',
-    name: 'Beers',
-    exact: true
-  },
-  {
-    link: '/search',
-    name: 'Search'
-  },
-  {
-    link: '/faves',
-    name: 'Favourites'
-  }]
+export class HeaderComponent
+  extends UnsubscribeOnDestroyAdapter
+  implements OnInit {
+  isAuthenticated = false;
 
+  constructor(private authService: AuthService) {
+    super();
+  }
+
+  ngOnInit() {
+    this.subs.sink = this.authService.user.subscribe((user) => {
+      this.isAuthenticated = !!user;
+    });
+  }
+
+  onLogOut() {
+    this.authService.logout();
+  }
 }

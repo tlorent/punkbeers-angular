@@ -5,7 +5,7 @@ import { Location } from '@angular/common';
 // optionally use providedIn: 'root' to make this service available in the root of the application.
 // Another advantage of this syntax: services can be lazily loaded by Angular and redundant code can be
 // removed automatically.
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class NavigationService {
   private history: string[] = [];
 
