@@ -1,5 +1,9 @@
 <app-container>
-  <h1>Your Favourite Beers!</h1>
+  <h1 i18n>Your Favourite Beers!</h1>
+  <p i18n>
+    You have {faves.length, plural, =0 {no fave beers} =1 {one fave beer} other {{{faves.length}} fave
+    beers}}
+  </p>
 
   <h3>Add a new beer.</h3>
   <app-beer-form (update)="onUpdateFaves($event)"></app-beer-form>

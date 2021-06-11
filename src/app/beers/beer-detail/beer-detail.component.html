@@ -7,7 +7,13 @@
         >{{ beer.fav ? "X" : "+" }}</span
       >
     </h3>
-    <img class="beer__img" [src]="beer.image_url" [alt]="beer.name" />
+    <img
+      class="beer__img"
+      i18n-title
+      title="Beer image"
+      [src]="beer.image_url"
+      [alt]="beer.name"
+    />
   </div>
   <div class="beer__details">
     <a routerLink="/beer/{{ beer.id }}">{{

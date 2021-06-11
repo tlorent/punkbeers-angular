@@ -1,5 +1,6 @@
 <app-container>
   <h2>All Beers</h2>
+  <p i18n>{{ beers.length }} {beers, plural, =1 {beer} other {beers}}</p>
   <button
     (click)="onReverse()"
     [@openClose]="isReversed ? 'closed' : 'open'"

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en-US" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="1235020089150975480" datatype="html">
+        <source>Beer image</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/beers/beer-detail/beer-detail.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7804724824750282316" datatype="html">
+        <source><x id="INTERPOLATION" equiv-text="{{ beers.length }}"/> <x id="ICU" equiv-text="{beers, plural, =1 {beer} other {beers}}"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/beers/beers.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8042492020685044933" datatype="html">
+        <source>{VAR_PLURAL, plural, =1 {beer} other {beers}}</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/beers/beers.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6476283362457449965" datatype="html">
+        <source>Your Favourite Beers!</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/faves/faves.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4664558507744392393" datatype="html">
+        <source> You have <x id="ICU" equiv-text="{faves.length, plural, =0 {no fave beers} =1 {one fave beer} other {{{faves.length}} fave
+    beers}}"/> </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/faves/faves.component.html</context>
+          <context context-type="linenumber">4,6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8504106484219758094" datatype="html">
+        <source>{VAR_PLURAL, plural, =0 {no fave beers} =1 {one fave beer} other {<x id="INTERPOLATION"/> fave
+    beers}}</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/faves/faves.component.html</context>
+          <context context-type="linenumber">4,5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8112799947739652913" datatype="html">
+        <source> Welcome to the Punk Beers catalogue, <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span highlight [highlightColor]=&quot;&apos;goldenrod&apos;&quot;&gt;"/>punk<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/>. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/home/home.component.html</context>
+          <context context-type="linenumber">3,5</context>
+        </context-group>
+        <note priority="1" from="description">Introduction header for homepage</note>
+        <note priority="1" from="meaning">site header</note>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
