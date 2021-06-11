@@ -1,2 +1,6 @@
 <app-header></app-header>
-<router-outlet></router-outlet>
+<div [@routeAnimations]="prepareRoute(outlet)">
+  <!-- outlet contains data about active routes and their states,
+  based on the data property set in the route configuration. -->
+  <router-outlet #outlet="outlet"></router-outlet>
+</div>

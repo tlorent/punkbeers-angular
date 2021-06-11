@@ -10,6 +10,7 @@ import { City } from '../../city';
 export class BeerFormComponent {
   // Alias for custom event.
   @Output('update') updateBeer: EventEmitter<Beer> = new EventEmitter<Beer>();
+  defaultCity = 'ams';
 
   cities: City[] = [
     {

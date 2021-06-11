@@ -80,7 +80,7 @@ ngModel is synchronising the form values -->
     <select
       name="city"
       id="city"
-      ngModel
+      [ngModel]="defaultCity"
       required
       #city="ngModel"
       [ngClass]="{ error: city.invalid && city.touched }"

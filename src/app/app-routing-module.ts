@@ -10,6 +10,13 @@ const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
   {
     path: 'beers',
+    /*
+      data property value is passed into
+      AppComponent when routes change.
+      data property value has to match
+      the transitions defined in the routeAnimation trigger
+    */
+    data: { animation: 'BeersPage' },
     loadChildren: () =>
       import('./beers/beers.module').then((mod) => mod.BeersModule),
   },
@@ -18,8 +25,18 @@ const routes: Routes = [
     loadChildren: () =>
       import('./auth/auth.module').then((mod) => mod.AuthModule),
   },
-  { path: 'beer/:id', component: BeerComponent, canActivate: [AuthGuard] },
-  { path: 'faves', component: FavesComponent, canActivate: [AuthGuard] },
+  {
+    path: 'beer/:id',
+    component: BeerComponent,
+    data: { animation: 'BeerPage' },
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'faves',
+    component: FavesComponent,
+    canActivate: [AuthGuard],
+    data: { animation: 'FavesPage' },
+  },
   { path: '**', component: NotFoundComponent },
 ];
 

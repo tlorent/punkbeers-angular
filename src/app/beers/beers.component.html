@@ -1,6 +1,13 @@
 <app-container>
   <h2>All Beers</h2>
-  <button (click)="onReverse()">Reverse beer names</button>
+  <button
+    (click)="onReverse()"
+    [@openClose]="isReversed ? 'closed' : 'open'"
+    (@openClose.start)="onAnimation($event)"
+    (@openClose.done)="onAnimation($event)"
+  >
+    Reverse beer names
+  </button>
   <div style="display: flex">
     <p>Sort by:</p>
     <select [(ngModel)]="sortBy">
