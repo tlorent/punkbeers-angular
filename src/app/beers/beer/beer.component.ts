@@ -18,10 +18,7 @@ export class BeerComponent implements OnInit {
     private beersService: BeersService
   ) {}
 
-  ngOnInit() {
-    this.getBeer();
-  }
-
+  // https://angular.io/guide/styleguide#member-sequence
   getBeer() {
     // Option 1 to get the id from the route params.
     // this.route.params.subscribe(({ id }) => this.beerId = id);
@@ -30,5 +27,9 @@ export class BeerComponent implements OnInit {
     // Option 2 to get the id from the route params.
     const id = this.route.snapshot.params['id'];
     this.beer = this.beersService.getBeer(id);
+  }
+
+  ngOnInit() {
+    this.getBeer();
   }
 }

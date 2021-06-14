@@ -10,9 +10,14 @@ import { UnsubscribeOnDestroyAdapter } from '../unsubscribe-on-destroy-adapter';
 })
 export class FavesComponent
   extends UnsubscribeOnDestroyAdapter
-  implements OnInit {
+  implements OnInit
+{
   faves: Beer[] = [];
   error: null | string = null;
+
+  onUpdateFaves(beer: Beer) {
+    this.beersService.addCustomBeer(beer);
+  }
 
   constructor(private beersService: BeersService) {
     super();
@@ -28,9 +33,5 @@ export class FavesComponent
       )),
       this.beersService.getFaves().subscribe((faves) => (this.faves = faves))
     );
-  }
-
-  onUpdateFaves(beer: Beer) {
-    this.beersService.addCustomBeer(beer);
   }
 }

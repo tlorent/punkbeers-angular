@@ -9,20 +9,21 @@ import { UnsubscribeOnDestroyAdapter } from '../unsubscribe-on-destroy-adapter';
 })
 export class HeaderComponent
   extends UnsubscribeOnDestroyAdapter
-  implements OnInit {
+  implements OnInit
+{
   isAuthenticated = false;
 
   constructor(private authService: AuthService) {
     super();
   }
 
+  onLogOut() {
+    this.authService.logout();
+  }
+
   ngOnInit() {
     this.subs.sink = this.authService.user.subscribe((user) => {
       this.isAuthenticated = !!user;
     });
-  }
-
-  onLogOut() {
-    this.authService.logout();
   }
 }

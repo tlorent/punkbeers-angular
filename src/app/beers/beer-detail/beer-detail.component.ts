@@ -31,18 +31,12 @@ export class BeerDetailComponent
     tagline: '',
     key: '',
   };
-  // Alias for custom property.
-  @Input('backButton') hasBackButton?: boolean;
+  // https://angular.io/guide/styleguide#avoid-aliasing-inputs-and-outputs
+  @Input() hasBackButton?: boolean;
   namesReversed: boolean = false;
 
   constructor(private beersService: BeersService) {
     super();
-  }
-
-  ngOnInit() {
-    this.subs.sink = this.beersService.namesReversedUpdated.subscribe(
-      (namesReversed) => (this.namesReversed = namesReversed)
-    );
   }
 
   onAdd(beer: Beer) {
@@ -51,5 +45,11 @@ export class BeerDetailComponent
 
   onRemove(beerId: string) {
     this.beersService.removeFav(beerId);
+  }
+
+  ngOnInit() {
+    this.subs.sink = this.beersService.namesReversedUpdated.subscribe(
+      (namesReversed) => (this.namesReversed = namesReversed)
+    );
   }
 }

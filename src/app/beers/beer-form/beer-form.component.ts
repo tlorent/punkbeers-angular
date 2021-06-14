@@ -8,8 +8,8 @@ import { City } from '../../city';
   styleUrls: ['./beer-form.component.scss'],
 })
 export class BeerFormComponent {
-  // Alias for custom event.
-  @Output('update') updateBeer: EventEmitter<Beer> = new EventEmitter<Beer>();
+  // https://angular.io/guide/styleguide#avoid-aliasing-inputs-and-outputs
+  @Output() updateBeer: EventEmitter<Beer> = new EventEmitter<Beer>();
   defaultCity = 'ams';
 
   cities: City[] = [

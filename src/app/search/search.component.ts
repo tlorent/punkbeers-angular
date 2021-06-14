@@ -24,12 +24,12 @@ export class SearchComponent {
    */
   private searchTerms$ = new Subject<string>();
 
-  constructor(private beerService: BeersService) {}
-
   // Push a search term into the observable stream.
   handleChange(term: string) {
     this.searchTerms$.next(term);
   }
+
+  constructor(private beerService: BeersService) {}
 
   // ngOnInit(): void {
   //   this.beers$ = this.searchTerms$.pipe(
