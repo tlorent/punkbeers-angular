@@ -11,7 +11,6 @@ import { HighlightDirective } from './directives/highlight.directive';
 import { UnlessDirective } from './directives/unless.directive';
 import { ListComponent } from './list/list.component';
 import { ReversePipe } from './pipes/reverse.pipe';
-import { SortPipe } from './pipes/sort.pipe';
 
 @NgModule({
   declarations: [
@@ -21,7 +20,6 @@ import { SortPipe } from './pipes/sort.pipe';
     BeerFormComponent,
     AlertComponent,
     ReversePipe,
-    SortPipe,
     BackButtonDirective,
     HighlightDirective,
     UnlessDirective,
@@ -41,7 +39,6 @@ import { SortPipe } from './pipes/sort.pipe';
     ListComponent,
     AlertComponent,
     ReversePipe,
-    SortPipe,
     BackButtonDirective,
     HighlightDirective,
     UnlessDirective,
