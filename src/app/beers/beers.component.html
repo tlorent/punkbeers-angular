@@ -11,10 +11,11 @@
   </button>
   <div style="display: flex">
     <p>Sort by:</p>
-    <select [(ngModel)]="sortBy">
+    <select (change)="sortBeers($event.target.value, beers)">
       <option value="name">Name</option>
       <option value="tagline">Tagline</option>
+      <option value="id">ID</option>
     </select>
   </div>
-  <app-list [beers]="beers | sort: sortBy"></app-list>
+  <app-list [beers]="beers"></app-list>
 </app-container>

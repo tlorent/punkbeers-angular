@@ -33,7 +33,7 @@ import { UnsubscribeOnDestroyAdapter } from '../unsubscribe-on-destroy-adapter';
     //   ),
     //   transition('open <=> closed', [animate('0.3s ease-in')]),
     // ]),
-    triggerAnimation
+    triggerAnimation,
   ],
 })
 export class BeersComponent
@@ -41,9 +41,9 @@ export class BeersComponent
   implements OnInit, OnDestroy
 {
   beers: Beer[] = [];
-  sortBy: 'name' | 'tagline' = 'name';
+  sortBy: 'name' | 'tagline' | 'id' = 'name';
   isReversed: boolean = false;
-  inProgress: boolean = false;
+  // inProgress: boolean = false;
 
   constructor(private beersService: BeersService) {
     // Call the parent's constructor (UnsubscribeOnDestroyAdapter) with super()
@@ -59,7 +59,11 @@ export class BeersComponent
           fav: faves.findIndex((favBeer) => favBeer.id === beer.id) > -1,
         }));
       }),
-      this.beersService.fetchBeers().subscribe((beers) => (this.beers = beers)),
+      this.beersService
+        .fetchBeers()
+        .subscribe(
+          (beers) => (this.beers = this.beers = this.sortBeers(this.sortBy, beers))
+        ),
       this.beersService.getFaves().subscribe((faves) => {
         this.beers = this.beers.map((beer) => ({
           ...beer,
@@ -83,5 +87,24 @@ export class BeersComponent
 
   onAnimation(event: AnimationEvent) {
     console.log(event);
+  }
+
+  sortBeers(propName: 'name' | 'tagline' | 'id', beers: Beer[]): Beer[] {
+    if (beers.length > 0) {
+      return beers.sort((a, b) => {
+        let valA = a[propName].toLowerCase();
+        let valB = b[propName].toLowerCase();
+
+        if (valA < valB) {
+          return -1;
+        }
+        if (valA > valB) {
+          return 1;
+        }
+        return 0;
+      });
+    } else {
+      return beers;
+    }
   }
 }
